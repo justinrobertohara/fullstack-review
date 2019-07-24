@@ -15,6 +15,9 @@ app.use(
 
 app.use(bodyParser.json());
 
+let { getReposByUsername } = require('../helpers/github.js');
+console.log(getReposByUsername);
+
 app.post('/repos', function(req, res) {
   // TODO - your code here!
   // This route should take the github username provided
@@ -22,10 +25,13 @@ app.post('/repos', function(req, res) {
   // save the repo information in the database
 
   console.log('this is my req.body', req.body);
-  var user = req.body;
+  var user = req.body.term;
 
-  console.log(user.term);
-  res.status(202).send(`you have received a term`);
+  console.log(user);
+
+  getReposByUsername(user);
+
+  // res.status(202).send(`you have received a term`);
   // console.log('this is my res', res);
 });
 
