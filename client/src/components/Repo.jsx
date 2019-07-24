@@ -2,8 +2,8 @@ import React from 'react';
 
 const RepoList = props => (
   <div>
-    <h4> Repo</h4>
-    This is the {props.repo.name} name. There are the {props.repo.forks} forks.
+    <h4> {props.repo.name} Github's profile</h4>
+    There are the {props.repo.forks} forks.
   </div>
 );
 

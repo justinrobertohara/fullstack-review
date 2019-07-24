@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
+import axio from 'axios'
 
 class App extends React.Component {
   constructor(props) {
@@ -633,6 +634,23 @@ class App extends React.Component {
   search (term) {
     console.log(`${term} was searched`);
     // TODO
+
+    var data = { term };
+    $.ajax({
+      type: "POST",
+      url: '/repos',
+      contentType: "application/json",
+      data: JSON.stringify(data),
+      success: function(err,res) {
+        if (err){
+          console.log(err)
+        } else {
+          console.log(res)
+        }
+      }
+    })
+
+    // axios.get(`https://api.github.com/users/${term}}?`)
   }
 
   render () {
