@@ -12,7 +12,7 @@ export default class RepoList extends React.Component {
     return (
       <div>
         <h4> Repo List Component </h4>
-        There are {this.props.repos.length} repos.
+        There are {this.props.repos.length} repos. 
         <ul>{listRepos}</ul>
       </div>
     );

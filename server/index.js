@@ -29,7 +29,7 @@ app.post('/repos', function(req, res) {
 
   console.log(user);
 
-  getReposByUsername(user);
+  getReposByUsername(user)
 
   // res.status(202).send(`you have received a term`);
   // console.log('this is my res', res);

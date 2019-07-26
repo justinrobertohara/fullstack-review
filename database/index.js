@@ -1,25 +1,33 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fetcher');
+mongoose.connect('mongodb://localhost/fetcherRPT');
 
 let repoSchema = mongoose.Schema({
   // TODO: your schema here!
-  user: String,
-  forks: Number
+  login: String,
+  forks: Number,
+  nameOfRepo: String
 });
+
+// let childSchema = new Schema({ repoName: 'string', forks: Number });
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = user => {
+let save = eachRepo => {
   // TODO: Your code here
   // This function should save a repo or repos to
   // the MongoDB
 
-  let user = new Repo({ user: user.full_name, forks: user.forks_count });
-  user.save(function(err) {
+
+  let singleRepo = new Repo({
+    login: eachRepo.owner.login,
+    forks: eachRepo.forks_count,
+    nameOfRepo: eachRepo.name
+  });
+  singleRepo.save(function(err) {
     if (err) {
       return console.log(err);
     } else {
-      console.log('you have saved your users repo');
+      console.log('you have saved all of your users repos');
     }
   });
 };
