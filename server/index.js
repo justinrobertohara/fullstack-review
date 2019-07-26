@@ -2,8 +2,9 @@ const express = require('express');
 let app = express();
 let bodyParser = require('body-parser');
 
-const mongoose = require('mongoose');
-var db = mongoose.connection;
+// const mongoose = require('mongoose');
+// var db = mongoose.connection;
+// let Repo = mongoose.model('Repo', repoSchema);
 
 app.use(express.static(__dirname + '/../client/dist'));
 
@@ -29,17 +30,20 @@ app.post('/repos', function(req, res) {
 
   console.log(user);
 
-  getReposByUsername(user)
+  getReposByUsername(user);
 
   // res.status(202).send(`you have received a term`);
   // console.log('this is my res', res);
 });
 
+const mongoose = require('mongoose');
+// mongoose.connect('mongodb://localhost/fetcherRPT');
+db = mongoose.createConnection('localhost', 'fetcherRPT');
+
 app.get('/repos', function(req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
-
-  Repo.find({})
+  Repos.find({})
     .sort({ forks: 1 })
     .limit(25)
     .exec(function(err, users) {
