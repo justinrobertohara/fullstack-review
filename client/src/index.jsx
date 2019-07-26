@@ -22,13 +22,11 @@ export default class App extends React.Component {
     axios
       .get('/repos')
       .then(response => {
-        console.log(response.data);
         this.setState({
           repos: response.data
         });
       })
       .catch(function(error) {
-        // handle error
         console.log(error);
       });
   }
