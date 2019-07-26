@@ -8,11 +8,11 @@ export default class RepoList extends React.Component {
 
   render() {
     const repos = this.props.repos;
-    const listRepos = repos.map(repo => <Repo key={repo.id} repo={repo} />);
+    const listRepos = repos.map(repo => <Repo key={repo._id} repo={repo} />);
     return (
       <div>
         <h4> Repo List Component </h4>
-        There are {this.props.repos.length} repos. 
+        There are {this.props.repos.length} repos.
         <ul>{listRepos}</ul>
       </div>
     );
