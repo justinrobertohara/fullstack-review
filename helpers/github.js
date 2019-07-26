@@ -17,14 +17,19 @@ let getReposByUsername = userName => {
     json: true // Automatically parses the JSON string in the response
   };
 
-  rp(options)
+  return rp(options)
     .then(function(repos) {
       console.log('this is my repos', repos);
       console.log(`${userName} has ${repos.length} public repos`);
 
       for (let i = 0; i < repos.length; i++) {
         console.log(repos[i]);
-        save(repos[i]);
+
+        if (i === repos.length - 1) {
+          return save(repos[i]);
+        } else {
+          save(repos[i]);
+        }
       }
     })
     .catch(function(err) {

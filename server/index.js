@@ -19,7 +19,6 @@ app.use(
 app.use(bodyParser.json());
 
 let { getReposByUsername } = require('../helpers/github.js');
-console.log(getReposByUsername);
 
 app.post('/repos', function(req, res) {
   // TODO - your code here!
@@ -28,13 +27,15 @@ app.post('/repos', function(req, res) {
   // save the repo information in the database
 
   console.log('this is my req.body', req.body);
-  var user = req.body.term;
+  var user = req.body.data;
 
   console.log(user);
 
-  getReposByUsername(user);
+  getReposByUsername(user).then(
+    res.status(202).send(`you have uploaded ${user}'s repos to your page`)
+  );
 
-  res.status(202).send(`you have uploaded ${user}'s repos to your page`);
+  //promisify user
   // console.log('this is my res', res);
 });
 

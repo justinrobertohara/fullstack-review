@@ -12,6 +12,7 @@ export default class App extends React.Component {
       repos: []
     };
     this.get25Repos = this.get25Repos.bind(this);
+    this.search = this.search.bind(this);
   }
 
   componentDidMount() {
@@ -19,6 +20,7 @@ export default class App extends React.Component {
   }
 
   get25Repos() {
+    console.log('function get25 ran');
     axios
       .get('/repos')
       .then(response => {
@@ -34,20 +36,41 @@ export default class App extends React.Component {
   search(term) {
     console.log(`${term} was searched`);
     // TODO
-    var data = { term };
-    $.ajax({
-      type: 'POST',
-      url: '/repos',
-      contentType: 'application/json',
-      data: JSON.stringify(data),
-      success: function(err, res) {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log(res);
-        }
-      }
-    });
+    var data = term;
+    axios
+      .post('/repos', {
+        data: data
+      })
+      .then(response => {
+        console.log(response);
+        let callRepos = () => {
+          console.log('callRepos', this);
+          this.get25Repos();
+        };
+        // this.get25Repos();
+        window.setTimeout(callRepos.bind(this), 10);
+        console.log(this);
+        // this.get25Repos();
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
+    // initial ajax call
+
+    // $.ajax({
+    //   type: 'POST',
+    //   url: '/repos',
+    //   contentType: 'application/json',
+    //   data: JSON.stringify(data),
+    //   success: function(err, res) {
+    //     if (err) {
+    //       console.log(err);
+    //     } else {
+    //       console.log(res);
+    //     }
+    //   }
+    // });
   }
 
   render() {
@@ -55,7 +78,7 @@ export default class App extends React.Component {
       <div>
         <h1>Github Fetcher</h1>
         <RepoList repos={this.state.repos} />
-        <Search onSearch={this.search.bind(this)} />
+        <Search onSearch={this.search} />
         <button onClick={this.get25Repos}>Get Request</button>
       </div>
     );

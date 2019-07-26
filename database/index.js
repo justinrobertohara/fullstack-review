@@ -20,13 +20,16 @@ let save = eachRepo => {
     forks: eachRepo.forks_count,
     nameOfRepo: eachRepo.name
   });
-  singleRepo.save(function(err) {
-    if (err) {
-      return console.log(err);
-    } else {
-      console.log('you have saved all of your users repos');
-    }
+  return singleRepo.save().then(() => {
+    console.log('you have saved a single repo');
   });
+  //   function(err) {
+  //   if (err) {
+  //     return console.log(err);
+  //   } else {
+  //     console.log('you have saved all of your users repos');
+  //   }
+  // });
 };
 
 module.exports.save = save;
