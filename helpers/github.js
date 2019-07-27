@@ -3,7 +3,7 @@ var rp = require('request-promise');
 const config = require('../config.js');
 const { save } = require('../database/index.js');
 
-let getReposByUsername = userName => {
+const getReposByUsername = userName => {
   let endpointURL = `https://api.github.com/users/${userName}?${config.TOKEN}`;
 
   var options = {
@@ -19,16 +19,14 @@ let getReposByUsername = userName => {
 
   return rp(options)
     .then(function(repos) {
-      console.log('this is my repos', repos);
       console.log(`${userName} has ${repos.length} public repos`);
 
       for (let i = 0; i < repos.length; i++) {
-        console.log(repos[i]);
-
         if (i === repos.length - 1) {
           return save(repos[i]);
         } else {
           save(repos[i]);
+          console.log('i have saved index', i);
         }
       }
     })

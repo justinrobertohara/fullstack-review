@@ -20,7 +20,6 @@ export default class App extends React.Component {
   }
 
   get25Repos() {
-    console.log('function get25 ran');
     axios
       .get('/repos')
       .then(response => {
@@ -34,14 +33,12 @@ export default class App extends React.Component {
   }
 
   search(term) {
-    console.log(`${term} was searched`);
-    // TODO
-    var data = term;
     axios
       .post('/repos', {
-        data: data
+        data: term
       })
       .then(response => {
+        //promisify***
         console.log(response);
         window.setTimeout(() => {
           this.get25Repos();
@@ -52,7 +49,6 @@ export default class App extends React.Component {
       });
 
     // initial ajax call
-
     // $.ajax({
     //   type: 'POST',
     //   url: '/repos',

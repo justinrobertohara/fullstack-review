@@ -1,12 +1,6 @@
 const express = require('express');
-let app = express();
-let bodyParser = require('body-parser');
-
-// let { Repo } = require('../helpers/github.js');
-
-// const mongoose = require('mongoose');
-// var db = mongoose.connection;
-// let Repo = mongoose.model('Repo', repoSchema);
+const app = express();
+const bodyParser = require('body-parser');
 
 app.use(express.static(__dirname + '/../client/dist'));
 
@@ -38,22 +32,14 @@ app.post('/repos', function(req, res) {
   // This route should take the github username provided
   // and get the repo information from the github API, then
   // save the repo information in the database
-
-  console.log('this is my req.body', req.body);
   var user = req.body.data;
-
-  console.log(user);
 
   getReposByUsername(user).then(
     res.status(202).send(`you have uploaded ${user}'s repos to your page`)
   );
-
-  //promisify user
-  // console.log('this is my res', res);
 });
 
-// let { db } = require('../helpers/github.js');
-let { Repo } = require('../database/index.js');
+const { Repo } = require('../database/index.js');
 
 app.get('/repos', function(req, res) {
   // TODO - your code here!
