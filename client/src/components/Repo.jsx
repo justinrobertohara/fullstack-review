@@ -1,5 +1,6 @@
 import React from 'react';
 
+//added in links
 const Repo = props => (
   <div>
     <h4> {props.repo.login} Github's profile</h4>
