@@ -5,8 +5,11 @@ const repoSchema = mongoose.Schema({
   // TODO: your schema here!
   login: String,
   forks: Number,
-  nameOfRepo: String
+  nameOfRepo: String,
+  url: { type: String, unique: true }
 });
+
+repoSchema.path('url').index({ unique: true });
 
 let Repo = mongoose.model('Repo', repoSchema);
 
@@ -15,12 +18,16 @@ let save = eachRepo => {
   // This function should save a repo or repos to
   // the MongoDB
 
-  let singleRepo = new Repo({
+  let singleRepo = {
     login: eachRepo.owner.login,
     forks: eachRepo.forks_count,
-    nameOfRepo: eachRepo.name
-  });
-  return singleRepo.save().then(() => {
+    nameOfRepo: eachRepo.name,
+    url: eachRepo.html_url
+  };
+  return Repo.findOneAndUpdate({ url: eachRepo.html_url }, singleRepo, {
+    new: true,
+    upsert: true // Make this update into an upsert
+  }).then(() => {
     console.log('you have saved a single repo');
   });
   //   function(err) {

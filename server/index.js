@@ -20,6 +20,19 @@ app.use(bodyParser.json());
 
 let { getReposByUsername } = require('../helpers/github.js');
 
+//heroku added code
+app.get('/', (req, res) => {
+  res.status(200).send('connection successful');
+});
+
+app.listen(process.env.PORT || 3000, function() {
+  console.log(
+    'Express server listening on port %d in %s mode',
+    this.address().port,
+    app.settings.env
+  );
+});
+
 app.post('/repos', function(req, res) {
   // TODO - your code here!
   // This route should take the github username provided

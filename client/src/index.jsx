@@ -45,7 +45,7 @@ export default class App extends React.Component {
         console.log(response);
         window.setTimeout(() => {
           this.get25Repos();
-        }, 2000);
+        }, 1500);
       })
       .catch(function(error) {
         console.log(error);
