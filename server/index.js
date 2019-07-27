@@ -34,9 +34,14 @@ app.post('/repos', function(req, res) {
   // save the repo information in the database
   var user = req.body.data;
 
-  getReposByUsername(user).then(
-    res.status(202).send(`you have uploaded ${user}'s repos to your page`)
-  );
+  getReposByUsername(user).then(repos => {
+    console.log(repos[0].owner.login);
+    var successObj = {
+      user: repos[0].owner.login,
+      number: repos.length
+    };
+    res.status(202).send(successObj);
+  });
 });
 
 const { Repo } = require('../database/index.js');
@@ -54,6 +59,16 @@ app.get('/repos', function(req, res) {
         res.status(200).send(users);
       }
     });
+});
+
+app.get('/users', function(req, res) {
+  Repo.distinct('login', function(err, distinctUsers) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.status(200).send(distinctUsers);
+    }
+  });
 });
 
 let port = 1128;

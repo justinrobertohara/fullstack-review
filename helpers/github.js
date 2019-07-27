@@ -22,13 +22,15 @@ const getReposByUsername = userName => {
       console.log(`${userName} has ${repos.length} public repos`);
 
       for (let i = 0; i < repos.length; i++) {
-        if (i === repos.length - 1) {
-          return save(repos[i]);
-        } else {
-          save(repos[i]);
-          console.log('i have saved index', i);
-        }
+        // if (i === repos.length - 1) {
+        //   return save(repos[i]);
+        // } else {
+        //   save(repos[i]);
+        //   // console.log('i have saved index', i);
+        // }
+        save(repos[i]);
       }
+      return repos;
     })
     .catch(function(err) {
       // API call failed...
