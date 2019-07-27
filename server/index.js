@@ -62,10 +62,11 @@ app.get('/repos', function(req, res) {
 });
 
 app.get('/users', function(req, res) {
-  Repo.distinct('login', function(err, distinctUsers) {
+  Repo.find({}).distinct('login', function(err, distinctUsers) {
     if (err) {
       console.log(err);
     } else {
+      console.log(distinctUsers);
       res.status(200).send(distinctUsers);
     }
   });
