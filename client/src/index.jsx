@@ -43,14 +43,9 @@ export default class App extends React.Component {
       })
       .then(response => {
         console.log(response);
-        let callRepos = () => {
-          console.log('callRepos', this);
+        window.setTimeout(() => {
           this.get25Repos();
-        };
-        // this.get25Repos();
-        window.setTimeout(callRepos.bind(this), 10);
-        console.log(this);
-        // this.get25Repos();
+        }, 2000);
       })
       .catch(function(error) {
         console.log(error);
@@ -79,7 +74,6 @@ export default class App extends React.Component {
         <h1>Github Fetcher</h1>
         <RepoList repos={this.state.repos} />
         <Search onSearch={this.search} />
-        <button onClick={this.get25Repos}>Get Request</button>
       </div>
     );
   }
